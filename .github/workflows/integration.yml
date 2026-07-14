@@ -90,7 +90,7 @@ jobs:
       all_targets: "${{ needs.splitter.outputs.targets }}"
       tarball_dir: "./tarballs"
       ansible_version: milestone
-      python_version: 3.12
+      python_version: 3.13
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
