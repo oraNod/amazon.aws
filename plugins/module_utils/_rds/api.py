@@ -40,6 +40,13 @@ def describe_db_clusters(client, **params: Dict) -> List[Dict[str, Any]]:
     return paginator.paginate(**params).build_full_result()["DBClusters"]
 
 
+@RDSErrorHandler.list_error_handler("describe db engine versions", [])
+@AWSRetry.jittered_backoff()
+def describe_db_engine_versions(client, **params: Dict) -> List[Dict[str, Any]]:
+    paginator = client.get_paginator("describe_db_engine_versions")
+    return paginator.paginate(**params).build_full_result()["DBEngineVersions"]
+
+
 @RDSErrorHandler.list_error_handler("describe db instances", [])
 @AWSRetry.jittered_backoff()
 def describe_db_instances(client, **params: Dict) -> List[Dict[str, Any]]:
