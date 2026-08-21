@@ -27,7 +27,7 @@ concurrency:
 # https://docs.ansible.com/projects/ansible/devel/dev_guide/testing/sanity/ignores.html#ignore-file-location
 jobs:
   certification:
-    uses: oraNod/github_actions/.github/workflows/certification.yml@main
+    uses: oraNod/partner-certification-checker/.github/workflows/certification-reusable.yml@main
     # For details on tested ansible-core branches and Python versions, see:
     # https://github.com/ansible-collections/partner-certification-checker#tested-ansible-core-branches-and-python-versions
     # with:
