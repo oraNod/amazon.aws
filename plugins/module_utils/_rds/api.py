@@ -61,6 +61,13 @@ def describe_db_snapshots(client, **params: Dict) -> List[Dict]:
     return paginator.paginate(**params).build_full_result()["DBSnapshots"]
 
 
+@RDSErrorHandler.list_error_handler("describe global clusters", [])
+@AWSRetry.jittered_backoff()
+def describe_global_clusters(client, **params: Dict) -> List[Dict[str, Any]]:
+    paginator = client.get_paginator("describe_global_clusters")
+    return paginator.paginate(**params).build_full_result()["GlobalClusters"]
+
+
 @RDSErrorHandler.list_error_handler("describe option groups", [])
 @AWSRetry.jittered_backoff()
 def describe_option_groups(client, **params: Dict) -> List[Dict[str, Any]]:

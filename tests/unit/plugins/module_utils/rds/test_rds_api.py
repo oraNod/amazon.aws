@@ -19,6 +19,7 @@ from ansible_collections.amazon.aws.plugins.module_utils.rds import Boto3ClientM
 from ansible_collections.amazon.aws.plugins.module_utils.rds import call_method
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_clusters
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_engine_versions
+from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_global_clusters
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_option_groups
 from ansible_collections.amazon.aws.plugins.module_utils.rds import get_final_identifier
 from ansible_collections.amazon.aws.plugins.module_utils.rds import get_snapshot
@@ -565,6 +566,52 @@ class TestDescribeDbClusters:
         )
 
         result = describe_db_clusters(client, DBClusterIdentifier="nonexistent")
+
+        assert result == []
+
+
+# =============================================================================
+# describe_global_clusters
+# =============================================================================
+
+
+class TestDescribeGlobalClusters:
+    def test_describe_global_clusters_returns_list(self):
+        client = MagicMock()
+        paginator = MagicMock()
+        client.get_paginator.return_value = paginator
+        paginator.paginate.return_value.build_full_result.return_value = {
+            "GlobalClusters": [
+                {"GlobalClusterIdentifier": "gc-1"},
+                {"GlobalClusterIdentifier": "gc-2"},
+            ]
+        }
+
+        result = describe_global_clusters(client, GlobalClusterIdentifier="gc-1")
+
+        client.get_paginator.assert_called_with("describe_global_clusters")
+        paginator.paginate.assert_called_with(GlobalClusterIdentifier="gc-1")
+        assert len(result) == 2
+        assert result[0]["GlobalClusterIdentifier"] == "gc-1"
+
+    def test_describe_global_clusters_empty(self):
+        client = MagicMock()
+        paginator = MagicMock()
+        client.get_paginator.return_value = paginator
+        paginator.paginate.return_value.build_full_result.return_value = {"GlobalClusters": []}
+
+        result = describe_global_clusters(client)
+
+        assert result == []
+
+    def test_describe_global_clusters_not_found_returns_empty(self):
+        client = MagicMock()
+        client.get_paginator.side_effect = botocore.exceptions.ClientError(
+            {"Error": {"Code": "GlobalClusterNotFoundFault", "Message": "not found"}},
+            "DescribeGlobalClusters",
+        )
+
+        result = describe_global_clusters(client, GlobalClusterIdentifier="nonexistent")
 
         assert result == []
 

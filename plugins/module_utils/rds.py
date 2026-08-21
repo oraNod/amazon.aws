@@ -24,6 +24,7 @@ describe_db_clusters = _api.describe_db_clusters
 describe_db_engine_versions = _api.describe_db_engine_versions
 describe_db_instances = _api.describe_db_instances
 describe_db_snapshots = _api.describe_db_snapshots
+describe_global_clusters = _api.describe_global_clusters
 describe_option_groups = _api.describe_option_groups
 list_tags_for_resource = _api.list_tags_for_resource
 get_final_identifier = _api.get_final_identifier
