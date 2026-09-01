@@ -198,7 +198,10 @@ def main():
     client = module.client("rds")
 
     try:
-        module.exit_json(changed=False, global_clusters=global_cluster_info(client, module, module.params.get("global_cluster_identifier")))
+        module.exit_json(
+            changed=False,
+            global_clusters=global_cluster_info(client, module, module.params.get("global_cluster_identifier")),
+        )
     except AnsibleRDSError as e:
         module.fail_json_aws(e, msg="Could not describe global clusters.")
 

@@ -36,6 +36,9 @@ update_iam_roles = _api.update_iam_roles
 describe_db_cluster_parameter_groups = _api.describe_db_cluster_parameter_groups
 describe_db_instance_parameter_groups = _api.describe_db_instance_parameter_groups
 describe_db_cluster_parameters = _api.describe_db_cluster_parameters
+create_db_cluster_parameter_group = _api.create_db_cluster_parameter_group
+delete_db_cluster_parameter_group = _api.delete_db_cluster_parameter_group
+modify_db_cluster_parameter_group = _api.modify_db_cluster_parameter_group
 
 # waiters.py re-exports
 wait_for_instance_status = _waiters.wait_for_instance_status

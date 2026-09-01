@@ -28,8 +28,13 @@ def test_engine_versions_info_with_engine(m_describe):
     ]
 
     result = engine_versions_info(
-        conn, module, engine="aurora-postgresql", engine_version=None,
-        db_parameter_group_family=None, default_only=False, filters=None,
+        conn,
+        module,
+        engine="aurora-postgresql",
+        engine_version=None,
+        db_parameter_group_family=None,
+        default_only=False,
+        filters=None,
     )
 
     assert result == [
@@ -58,15 +63,23 @@ def test_engine_versions_info_default_only(m_describe):
     ]
 
     result = engine_versions_info(
-        conn, module, engine="postgres", engine_version=None,
-        db_parameter_group_family="postgres16", default_only=True, filters=None,
+        conn,
+        module,
+        engine="postgres",
+        engine_version=None,
+        db_parameter_group_family="postgres16",
+        default_only=True,
+        filters=None,
     )
 
     assert len(result) == 1
     assert result[0]["engine"] == "postgres"
     assert result[0]["tags"] == {}
     m_describe.assert_called_with(
-        conn, DefaultOnly=True, Engine="postgres", DBParameterGroupFamily="postgres16",
+        conn,
+        DefaultOnly=True,
+        Engine="postgres",
+        DBParameterGroupFamily="postgres16",
     )
 
 
@@ -77,8 +90,13 @@ def test_engine_versions_info_no_results(m_describe):
     m_describe.return_value = []
 
     result = engine_versions_info(
-        conn, module, engine="mysql", engine_version="99.99",
-        db_parameter_group_family=None, default_only=False, filters=None,
+        conn,
+        module,
+        engine="mysql",
+        engine_version="99.99",
+        db_parameter_group_family=None,
+        default_only=False,
+        filters=None,
     )
 
     assert result == []
@@ -96,8 +114,13 @@ def test_engine_versions_info_no_tag_list_key(m_describe):
     ]
 
     result = engine_versions_info(
-        conn, module, engine="mysql", engine_version=None,
-        db_parameter_group_family=None, default_only=False, filters=None,
+        conn,
+        module,
+        engine="mysql",
+        engine_version=None,
+        db_parameter_group_family=None,
+        default_only=False,
+        filters=None,
     )
 
     assert result[0]["tags"] == {}
@@ -111,8 +134,13 @@ def test_engine_versions_info_with_filters(m_describe):
     filters = {"engine-mode": "provisioned"}
 
     engine_versions_info(
-        conn, module, engine=None, engine_version=None,
-        db_parameter_group_family=None, default_only=False, filters=filters,
+        conn,
+        module,
+        engine=None,
+        engine_version=None,
+        db_parameter_group_family=None,
+        default_only=False,
+        filters=filters,
     )
 
     m_describe.assert_called_with(conn, DefaultOnly=False, Filters=filters)

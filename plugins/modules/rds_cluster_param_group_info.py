@@ -112,6 +112,7 @@ except ImportError:
 from ansible.module_utils.common.dict_transformations import camel_dict_to_snake_dict
 
 from ansible_collections.amazon.aws.plugins.module_utils.modules import AnsibleAWSModule
+from ansible_collections.amazon.aws.plugins.module_utils.rds import AnsibleRDSError
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_cluster_parameter_groups
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_cluster_parameters
 from ansible_collections.amazon.aws.plugins.module_utils.rds import get_tags
@@ -149,8 +150,10 @@ def main() -> None:
         client = module.client("rds", retry_decorator=AWSRetry.jittered_backoff(retries=10))
     except (botocore.exceptions.ClientError, botocore.exceptions.BotoCoreError) as e:
         module.fail_json_aws(e, msg="Failed to connect to AWS.")
-
-    describe_rds_cluster_parameter_group(client, module)
+    try:
+        describe_rds_cluster_parameter_group(client, module)
+    except AnsibleRDSError as e:
+        module.fail_json_aws(e, msg="Failed to describe RDS cluster parameter groups")
 
 
 if __name__ == "__main__":

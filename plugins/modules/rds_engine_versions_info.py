@@ -299,7 +299,9 @@ from ansible.module_utils.common.dict_transformations import camel_dict_to_snake
 
 from ansible_collections.amazon.aws.plugins.module_utils.modules import AnsibleAWSModule
 from ansible_collections.amazon.aws.plugins.module_utils.rds import AnsibleRDSError
-from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_engine_versions as _describe_db_engine_versions
+from ansible_collections.amazon.aws.plugins.module_utils.rds import (
+    describe_db_engine_versions as _describe_db_engine_versions,
+)
 from ansible_collections.amazon.aws.plugins.module_utils.tagging import boto3_tag_list_to_ansible_dict
 
 

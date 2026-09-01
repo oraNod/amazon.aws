@@ -708,11 +708,16 @@ class TestDescribeDbEngineVersions:
         }
 
         result = describe_db_engine_versions(
-            client, Engine="postgres", DefaultOnly=True, DBParameterGroupFamily="postgres16",
+            client,
+            Engine="postgres",
+            DefaultOnly=True,
+            DBParameterGroupFamily="postgres16",
         )
 
         paginator.paginate.assert_called_with(
-            Engine="postgres", DefaultOnly=True, DBParameterGroupFamily="postgres16",
+            Engine="postgres",
+            DefaultOnly=True,
+            DBParameterGroupFamily="postgres16",
         )
         assert len(result) == 1
 
