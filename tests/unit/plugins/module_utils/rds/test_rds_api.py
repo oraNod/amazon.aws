@@ -20,6 +20,7 @@ from ansible_collections.amazon.aws.plugins.module_utils.rds import call_method
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_clusters
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_engine_versions
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_subnet_groups
+from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_instance_parameter_groups
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_global_clusters
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_option_groups
 from ansible_collections.amazon.aws.plugins.module_utils.rds import get_final_identifier
@@ -764,5 +765,53 @@ class TestDescribeDbSubnetGroups:
         )
 
         result = describe_db_subnet_groups(client, DBSubnetGroupName="nonexistent")
+
+        assert result == []
+
+# =============================================================================
+# describe_db_instance_parameter_groups
+# =============================================================================
+
+class TestDescribeDbInstanceParameterGroups:
+    def test_describe_db_instance_parameter_groups_returns_list(self):
+        """Test successful retrieval of parameter groups"""
+        client = MagicMock()
+        paginator = MagicMock()
+        client.get_paginator.return_value = paginator
+        paginator.paginate.return_value.build_full_result.return_value = {
+            "DBParameterGroups": [
+                {"DBParameterGroupName": "pg-1", "DBParameterGroupFamily": "mysql8.4"},
+                {"DBParameterGroupName": "pg-2", "DBParameterGroupFamily": "postgres18"},
+            ]
+        }
+
+        result = describe_db_instance_parameter_groups(client, "pg-1")
+
+        client.get_paginator.assert_called_with("describe_db_parameter_groups")
+        paginator.paginate.assert_called_with(DBParameterGroupName="pg-1")
+        assert len(result) == 2
+        assert result[0]["DBParameterGroupName"] == "pg-1"
+
+    def test_describe_db_instance_parameter_groups_empty(self):
+        """Test retrieval with None as group_name returns all groups"""
+        client = MagicMock()
+        paginator = MagicMock()
+        client.get_paginator.return_value = paginator
+        paginator.paginate.return_value.build_full_result.return_value = {"DBParameterGroups": []}
+
+        result = describe_db_instance_parameter_groups(client, None)
+
+        paginator.paginate.assert_called_with()
+        assert result == []
+
+    def test_describe_db_instance_parameter_groups_not_found_returns_empty(self):
+        """Test DBParameterGroupNotFoundFault returns empty list"""
+        client = MagicMock()
+        client.get_paginator.side_effect = botocore.exceptions.ClientError(
+            {"Error": {"Code": "DBParameterGroupNotFoundFault", "Message": "not found"}},
+            "DescribeDBParameterGroups",
+        )
+
+        result = describe_db_instance_parameter_groups(client, "nonexistent")
 
         assert result == []
