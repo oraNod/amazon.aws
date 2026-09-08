@@ -22,9 +22,9 @@ from ansible_collections.amazon.aws.plugins.module_utils.rds import create_db_pa
 from ansible_collections.amazon.aws.plugins.module_utils.rds import delete_db_parameter_group
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_clusters
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_engine_versions
-from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_subnet_groups
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_instance_parameter_groups
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_parameters
+from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_db_subnet_groups
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_global_clusters
 from ansible_collections.amazon.aws.plugins.module_utils.rds import describe_option_groups
 from ansible_collections.amazon.aws.plugins.module_utils.rds import get_final_identifier
