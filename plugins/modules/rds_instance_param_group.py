@@ -274,8 +274,10 @@ def ensure_present(module: AnsibleAWSModule, connection: Any) -> None:
         changed = changed or params_changed
 
     response = describe_db_instance_parameter_groups(connection, group_name=groupname)
-    group = camel_dict_to_snake_dict(response[0])
-    group["tags"] = get_tags(connection, module, group["db_parameter_group_arn"])
+    group = {}
+    if response:
+        group = camel_dict_to_snake_dict(response[0])
+        group["tags"] = get_tags(connection, module, group["db_parameter_group_arn"])
 
     module.exit_json(changed=changed, errors=errors, **group)
 
