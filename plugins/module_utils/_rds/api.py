@@ -301,7 +301,7 @@ def describe_db_cluster_parameter_groups(module, connection: Any, group_name: Op
 
 @RDSErrorHandler.list_error_handler("describe db parameter groups", [])
 @AWSRetry.jittered_backoff()
-def describe_db_instance_parameter_groups(connection: Any, group_name: Optional[str]) -> List[Dict[str, Any]]:
+def describe_db_instance_parameter_groups(connection: Any, group_name: Optional[str] = None) -> List[Dict[str, Any]]:
     params = {}
     if group_name is not None:
         params["DBParameterGroupName"] = group_name
