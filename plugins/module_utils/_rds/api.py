@@ -320,6 +320,7 @@ def describe_db_cluster_parameters(
         params["Source"] = source
     return paginator.paginate(**params).build_full_result()["Parameters"]
 
+
 @RDSErrorHandler.list_error_handler("describe db parameters", [])
 @AWSRetry.jittered_backoff()
 def describe_db_parameters(connection: Any, group_name: str, source: str = "all") -> List[Dict[str, Any]]:
@@ -329,13 +330,16 @@ def describe_db_parameters(connection: Any, group_name: str, source: str = "all"
         params["Source"] = source
     return paginator.paginate(**params).build_full_result()["Parameters"]
 
+
 @RDSErrorHandler.common_error_handler("create db cluster parameter group")
 def create_db_cluster_parameter_group(connection: Any, **params: Dict) -> Dict[str, Any]:
     return connection.create_db_cluster_parameter_group(aws_retry=True, **params)
 
+
 @RDSErrorHandler.common_error_handler("create db parameter group")
 def create_db_parameter_group(connection: Any, **params: Dict) -> Dict[str, Any]:
     return connection.create_db_parameter_group(aws_retry=True, **params)
+
 
 @RDSErrorHandler.common_error_handler("modify db parameter group")
 def modify_db_parameter_group(connection: Any, group_name: str, parameters: List[Dict[str, Any]]) -> None:
@@ -346,13 +350,16 @@ def modify_db_parameter_group(connection: Any, group_name: str, parameters: List
             aws_retry=True, DBParameterGroupName=group_name, Parameters=non_empty_chunk
         )
 
+
 @RDSErrorHandler.deletion_error_handler("delete db cluster parameter group")
 def delete_db_cluster_parameter_group(connection: Any, group_name: str) -> Dict[str, Any]:
     return connection.delete_db_cluster_parameter_group(aws_retry=True, DBClusterParameterGroupName=group_name)
 
+
 @RDSErrorHandler.deletion_error_handler("delete db parameter group")
 def delete_db_parameter_group(connection: Any, group_name: str) -> Dict[str, Any]:
     return connection.delete_db_parameter_group(aws_retry=True, DBParameterGroupName=group_name)
+
 
 @RDSErrorHandler.common_error_handler("modify db cluster parameter group")
 def modify_db_cluster_parameter_group(connection: Any, group_name: str, parameters: List[Dict[str, Any]]) -> None:
