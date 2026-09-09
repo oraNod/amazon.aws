@@ -40,9 +40,9 @@ jobs:
     uses: Andersson007/partner-certification-checker/.github/workflows/certification-reusable.yml@issue_103
     # For details on tested ansible-core branches and Python versions,
     # see: https://github.com/ansible-collections/partner-certification-checker#tested-ansible-core-branches-and-python-versions
-    with:
+    #with:
     #   ansible-core-version: '2.18.0'
-      skip-sanity-versions: 'stable-2.16'
+    #  skip-sanity-versions: 'stable-2.16'
     #   collection-root: 'ansible_collections/junipernetworks/junos'
     #   collection-deps: 'kubernetes.core amazon.aws'
     #   automation-hub: true
