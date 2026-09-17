@@ -1,0 +1,31 @@
+# tests/integration/requirements.in
+# Dependencies for integration tests
+
+-c ../../constraints.in
+
+# Core AWS SDK
+boto3
+botocore
+
+# Network utilities (for ansible.utils.ipv6 filter)
+netaddr
+
+# Virtual environment management
+virtualenv
+
+# AWS CLI tools
+awscli
+
+# Cryptography (for SSH fingerprint comparison)
+cryptography
+
+# Test recording
+placebo
+
+# Event-Driven Automation testing
+ansible-rulebook
+ansible-runner
+aiobotocore
+
+# Utility tools (for indirect node count test targets)
+jq

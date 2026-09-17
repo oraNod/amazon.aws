@@ -1,0 +1,16 @@
+# tests/unit/requirements.in
+# Minimal dependencies for unit tests
+
+-c ../../constraints.in
+
+# Core AWS SDK
+botocore
+boto3
+
+# Test recording/mocking
+placebo
+
+# Async testing (for EDA event source plugins)
+aiobotocore
+asyncmock
+pytest-asyncio
