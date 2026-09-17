@@ -1,0 +1,13 @@
+# meta/ee-requirements.txt
+# Runtime dependencies for amazon.aws collection
+# This file is the single source of truth for execution environments and contributor workflows
+
+-c ../constraints.in
+
+# Core AWS SDK (versions specified in constraints.in)
+botocore>=1.38.23
+boto3>=1.38.23
+
+# Event-Driven Automation support
+# Required for EDA event source plugins
+aiobotocore>=2.23.0
