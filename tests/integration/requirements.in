@@ -2,7 +2,6 @@
 # Runtime dependencies (botocore, boto3) come from meta/ee-requirements.txt via tox/CI
 # This file is compiled to requirements.txt with: uv pip compile
 
--c ../constraints.in
 -r ../test-requirements.in
 
 # netaddr is needed for ansible.utils.ipv6
