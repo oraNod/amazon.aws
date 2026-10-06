@@ -1,12 +1,10 @@
 # Shared testing framework dependencies
 # Used by both unit and integration tests
 
+-r ../meta/ee-requirements.txt # <-- runtime requirements
 -c constraints.in # <-- contains known limitations
 
-botocore
-boto3
-
-aiobotocore
+# Required for features not covered by modules
 awscli
 
 # Testing framework

@@ -1,1 +1,5 @@
+# This requirements file is provided for convenience.
+# Runtime dependencies must be added to meta/ee-requirements.txt.
+# Do not declare any dependencies below other than for local development.
+
 -r meta/ee-requirements.txt
