@@ -1,0 +1,23 @@
+# Shared testing framework dependencies
+# Used by both unit and integration tests
+
+-c constraints.in # <-- contains known limitations
+
+botocore
+boto3
+
+aiobotocore
+awscli
+
+# Testing framework
+pytest
+pytest-cov
+pytest-forked
+pytest-mock
+pytest-xdist
+pytest-ansible
+pytest-memray
+
+# Test utilities
+mock
+placebo

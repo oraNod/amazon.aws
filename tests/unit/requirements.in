@@ -1,0 +1,9 @@
+# Unit test specific dependencies
+# Runtime dependencies (botocore, boto3, aiobotocore) come from meta/ee-requirements.txt via tox
+# This file is compiled to requirements.txt with: uv pip compile
+
+-r ../test-requirements.in
+
+# For testing EDA event source plugins
+asyncmock
+pytest-asyncio

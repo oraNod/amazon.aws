@@ -1,0 +1,11 @@
+# Amazon.aws collection runtime dependencies
+# This file is the single source of truth for runtime dependencies.
+# When updating minimum versions here:
+# 1. Update matching pins in constraints.in (use == with same version)
+# 2. Recompile tests/*/requirements.txt with uv pip compile
+# 3. CI automatically validates that constraints.in matches (see .github/workflows/dependency-validation.yml)
+
+botocore>=1.38.23
+boto3>=1.38.23
+# Required for EDA event source plugins
+aiobotocore[botocore]>=2.23.0

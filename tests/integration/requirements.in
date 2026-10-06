@@ -1,0 +1,21 @@
+# Integration test specific dependencies
+# Runtime dependencies (botocore, boto3) come from meta/ee-requirements.txt via tox/CI
+# This file is compiled to requirements.txt with: uv pip compile
+
+-c ../constraints.in
+-r ../test-requirements.in
+
+# netaddr is needed for ansible.utils.ipv6
+netaddr
+virtualenv
+# Used for comparing SSH Public keys to the Amazon fingerprints
+cryptography
+# Used for indirect node count tests targets
+jq
+# Used for event source AWS integration tests
+# Temporarily disabled due to Python 3.15 compatibility issue with jpy transitive dependency
+# See: https://github.com/jpy-consortium/jpy/issues/243
+# The event_source_aws_cloudtrail test is disabled, so these dependencies are not currently needed
+# ansible-rulebook
+# ansible-runner
+# aiobotocore[botocore]
