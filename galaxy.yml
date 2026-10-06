@@ -22,3 +22,4 @@ build_ignore:
   - collections
   - .tox
   - uv.lock
+  - requirements.txt
