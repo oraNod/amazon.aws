@@ -1,4 +1,9 @@
-# Pin to oldest supported versions for testing
+# This file is the single source of truth for SDK version floor constraints.
+# Applied by:
+#   - tox.ini: with_constraints factor (unit tests against oldest SDK)
+#   - .github/workflows/integration.yml: integration tests (always use oldest SDK)
+#
+# These pins must match the >= minimums declared in meta/ee-requirements.txt
 
 botocore==1.38.23
 boto3==1.38.23
