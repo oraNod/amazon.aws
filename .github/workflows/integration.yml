@@ -165,4 +165,4 @@ jobs:
             ansible.windows
             ${{ steps.set-path.outputs.collection_dep }}
           pre-test-cmd: |-
-            python3 -m pip install -r tests/integration/requirements.txt -r tests/integration/constraints.txt
+            python3 -m pip install -c tests/constraints.in -r meta/ee-requirements.txt -r tests/integration/requirements.in
