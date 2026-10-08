@@ -2,7 +2,6 @@
 # Used by both unit and integration tests
 
 -r ../meta/ee-requirements.txt # <-- runtime requirements
--c constraints.in # <-- contains known limitations
 
 # Required for features not covered by modules
 awscli
